@@ -55,3 +55,51 @@ const styles = {
 
 
 export default MovieCard;
+
+{/*
+1. 컴포넌트 정의 및 Props 전달
+const MovieCard = ({ title, posterPath, voteAverage, onClick }) => {
+MovieCard는 함수형 컴포넌트입니다.
+이 컴포넌트는 title, posterPath, voteAverage, onClick이라는 네 가지 props를 받습니다.
+title: 영화 제목.
+posterPath: 영화 포스터 이미지의 경로.
+voteAverage: 영화의 평점.
+onClick: 카드를 클릭했을 때 실행할 함수.
+
+2. 이미지 기본 URL 설정
+
+const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+imageBaseUrl은 영화 포스터 이미지를 가져오기 위한 기본 URL입니다.
+TMDb (The Movie Database) API에서 제공하는 이미지 URL의 기본 경로로 사용됩니다.
+
+3. 카드 UI 렌더링
+
+return (
+    <div style={styles.card} onClick={onClick}>
+        <img
+            src={`${imageBaseUrl}${posterPath}`}
+            alt={title}
+            style={styles.poster}
+        />
+        <h2 style={styles.title}>{title}</h2>
+        <p style={styles.rating}>평점: {voteAverage}</p>
+    </div>
+);
+div 요소는 카드 컨테이너로 사용됩니다. 
+이 컨테이너는 styles.card 스타일 객체로 스타일링되고, 
+onClick 이벤트가 연결됩니다. 
+사용자가 카드를 클릭하면 onClick 함수가 호출됩니다.
+
+img 요소는 영화 포스터를 표시합니다.
+
+src 속성: imageBaseUrl과 posterPath를 결합하여 최종 이미지 URL을 생성합니다.
+alt 속성: 이미지가 로드되지 않을 때 표시할 대체 텍스트로 영화 제목을 사용합니다.
+style: styles.poster 스타일 객체를 적용합니다.
+h2 요소는 영화 제목을 표시합니다.
+
+style: styles.title 스타일 객체를 적용합니다.
+p 요소는 영화 평점을 표시합니다.
+
+style: styles.rating 스타일 객체를 적용합니다.
+    
+*/}

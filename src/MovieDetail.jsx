@@ -1,99 +1,137 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; 
-import movieDetailData from './data/movieDetailData.json'; 
+import { useParams } from 'react-router-dom';
 
-// 특정 영화의 상세 정보를 렌더링
 const MovieDetail = () => {
-    // useParams 훅을 사용해 URL에서 영화 ID
-    const { id } = useParams();
+    // URL 파라미터에서 영화 ID를 추출
+    const { id } = useParams(); 
+    
+    // 상태 변수 정의
+    const [movie, setMovie] = useState(null); // 영화 상세 정보
+    const [loading, setLoading] = useState(true); // 로딩 상태
+    const [error, setError] = useState(null); // 오류 상태
 
-    // 초기값은 null
-    const [movie, setMovie] = useState(null);
-
-    // 컴포넌트가 마운트되거나 id가 변경될 때마다 실행되는 useEffect 훅
+    // 영화 상세 정보를 가져오는 useEffect 훅
     useEffect(() => {
-        // 더미 데이터 설정 
-        setMovie(movieDetailData);
-    }, [id]); // id가 변경될 때마다 useEffect 재실행
+        const fetchMovieDetails = async () => {
+            try {
+                // TMDb API 호출을 위한 옵션 설정
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: `Bearer ${import.meta.env.VITE_TMDB_BEARER_TOKEN}` 
+                    }
+                };
 
-    // 영화 데이터가 로드되지 않은 경우 로딩 메시지 표시
-    if (!movie) {
+                // 영화 상세 정보를 가져오는 API 호출
+                const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=ko`, options); 
+
+                // 응답이 정상적이지 않으면 오류를 발생시킴
+                if (!response.ok) {
+                    throw new Error('응답오류');
+                }
+
+                // 응답 데이터를 JSON으로 변환
+                const data = await response.json();
+                setMovie(data); // 영화 상세 정보 상태 업데이트
+            } catch (error) {
+                setError(error.message); // 오류 상태 업데이트
+            } finally {
+                setLoading(false); // 로딩 상태를 false로 설정
+            }
+        };
+
+        fetchMovieDetails(); // 영화 상세 정보를 가져오는 함수 호출
+    }, [id]); // id가 변경될 때마다 이 useEffect 훅이 실행됨
+
+    // 로딩 중일 때 표시할 컴포넌트
+    if (loading) {
         return <div>로딩 중...</div>;
     }
 
-    // 영화 데이터를 렌더링하는 JSX 반환
+    // 오류 발생 시 표시할 컴포넌트
+    if (error) {
+        return <div>오류: {error}</div>;
+    }
+
+    // 영화 정보가 없는 경우 표시할 컴포넌트
+    if (!movie) {
+        return <div>영화 정보를 찾을 수 없습니다.</div>;
+    }
+
+    // 영화 상세 정보를 포함한 반환 JSX
     return (
         <div style={styles.container}>
-            {/* 포스터를 보여주는 섹션 */}
+            {/* 포스터 이미지와 관련된 컨테이너 */}
             <div style={styles.posterContainer}>
                 <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} // 영화 포스터 이미지 URL
-                    alt={movie.title} // 포스터의 대체 텍스트로 영화 제목 사용
-                    style={styles.poster} // 포스터 이미지에 대한 스타일
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                    alt={movie.title} 
+                    style={styles.poster} 
                 />
             </div>
-            {/* 영화 세부 정보를 보여주는 섹션 */}
+            {/* 영화 상세 정보와 관련된 컨테이너 */}
             <div style={styles.detailsContainer}>
-                <h1 style={styles.title}>{movie.title}</h1> {/* 영화 제목 */}
-                <p style={styles.rating}>평점: {movie.vote_average.toFixed(1)}</p> {/* 평점 */}
+                <h1 style={styles.title}>{movie.title}</h1> 
+                <p style={styles.rating}>평점: {movie.vote_average.toFixed(1)}</p> 
                 <p style={styles.genres}>
-                    장르: {movie.genres.map(genre => genre.name).join(', ')} {/* 장르 목록 */}
+                    장르: {movie.genres.map(genre => genre.name).join(', ')} 
                 </p>
-                <p style={styles.overview}>{movie.overview}</p> {/* 영화 개요 */}
+                <p style={styles.overview}>{movie.overview}</p> 
             </div>
         </div>
     );
 };
 
-// CSS 속성을 객체 형태로 작성
+// 스타일 정의
 const styles = {
     container: {
-        display: 'flex', // Flexbox를 사용해 레이아웃 설정
-        flexDirection: 'row', // 가로 방향으로 정렬
-        margin: '20px', // 외부 여백
-        padding: '20px', // 내부 여백
-        border: '1px solid #ddd', // 외곽선
-        borderRadius: '8px', // 모서리를 둥글게
-        backgroundColor: '#000000', // 배경색 (검은색)
+        display: 'flex',
+        flexDirection: 'row',
+        margin: '20px',
+        padding: '20px',
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+        backgroundColor: '#000000',
+        color: '#ffffff' 
     },
 
     posterContainer: {
-        flex: '1 1 300px', // Flexbox 설정: 1단위 크기, 최소 크기 300px
-        marginRight: '20px', // 오른쪽 여백
+        flex: '1 1 300px',
+        marginRight: '20px',
     },
 
     poster: {
-        width: '100%', // 포스터 이미지의 너비를 부모 컨테이너에 맞춤
-        borderRadius: '8px', // 이미지 모서리를 둥글게
+        width: '100%',
+        borderRadius: '8px',
     },
 
     detailsContainer: {
-        flex: '2 1 600px', // Flexbox 설정: 2단위 크기, 최소 크기 600px
-        display: 'flex', // Flexbox 사용
-        flexDirection: 'column', // 세로 방향으로 정렬
-        justifyContent: 'center', // 세로 가운데 정렬
+        flex: '2 1 600px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
 
     title: {
-        fontSize: '2em', // 제목 글자 크기
-        margin: '0 0 10px 0', // 아래쪽 여백 10px
+        fontSize: '2em',
+        margin: '0 0 10px 0',
     },
 
     rating: {
-        fontSize: '1.2em', // 평점 글자 크기
-        margin: '0 0 10px 0', // 아래쪽 여백 10px
+        fontSize: '1.2em',
+        margin: '0 0 10px 0',
     },
 
     genres: {
-        fontSize: '1.2em', // 장르 글자 크기
-        margin: '0 0 10px 0', // 아래쪽 여백 10px
+        fontSize: '1.2em',
+        margin: '0 0 10px 0',
     },
     
     overview: {
-        fontSize: '1em', // 개요 글자 크기
-        lineHeight: '1.5', // 줄 간격
+        fontSize: '1em',
+        lineHeight: '1.5',
     },
 };
-
 
 export default MovieDetail;
