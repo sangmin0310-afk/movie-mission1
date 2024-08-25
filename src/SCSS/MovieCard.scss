@@ -1,0 +1,32 @@
+.movie-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+
+    .poster {
+        width: 100%;
+        border-radius: 4px;
+    }
+
+    .info {
+        margin-top: 10px;
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .vote {
+            color: #555;
+        }
+
+        .release-date {
+            font-size: 14px;
+        }
+    }
+}

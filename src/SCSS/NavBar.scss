@@ -1,0 +1,35 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #000000;
+    border-bottom: 1px solid #dee2e6;
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    .search-input {
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid #ddd;
+        width: 300px;
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 0.5rem;
+
+        .button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            background-color: #007000;
+            color: white;
+            cursor: pointer;
+        }
+    }
+}
