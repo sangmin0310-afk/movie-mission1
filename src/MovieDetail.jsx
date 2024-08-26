@@ -41,8 +41,8 @@ const MovieDetail = () => {
         return <div>로딩 중...</div>;
     }
 
-    if (!movie) {
-        return <div>영화 정보를 찾을 수 없습니다.</div>;
+    if (error) {
+        return <div className="error">오류: {error.message}</div>;
     }
 
     return (

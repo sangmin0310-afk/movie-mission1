@@ -32,4 +32,25 @@
             cursor: pointer;
         }
     }
+   
+    @media (max-width: 300px) {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .search-input {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .auth-buttons {
+            width: 100%;
+            justify-content: flex-end;
+
+            .button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
 }
+

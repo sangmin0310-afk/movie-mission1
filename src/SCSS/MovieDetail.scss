@@ -45,3 +45,25 @@
   font-size: 1em;
   line-height: 1.5;
 }
+
+@media (max-width: 300px) {
+  flex-direction:column
+
+  .posterContainer {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+
+  .rating,
+  .genres {
+    font-size: 1em;
+  }
+
+  .overview {
+    font-size: 0.875em;
+  }
+}

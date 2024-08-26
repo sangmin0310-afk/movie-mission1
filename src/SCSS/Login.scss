@@ -36,4 +36,18 @@
             margin-top: 1rem; 
         }
     }
+    
+    @media (max-width: 300px) {
+        .login-form {
+            padding: 1.5rem;
+        }
+
+        .login-input {
+            font-size: 0.875rem;
+        }
+
+        .login-button {
+            font-size: 1rem;
+        }
+    }
 }
