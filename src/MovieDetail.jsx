@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './SCSS/MovieDetail.scss'; // SCSS 파일 import
 
 const MovieDetail = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

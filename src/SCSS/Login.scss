@@ -6,7 +6,7 @@
     width: 100vw; 
     background-color: #3A3A3A; 
     padding: 0; 
-    margin: 0; 
+    margin: 0;
 
     .login-form {
         display: flex; 
@@ -16,6 +16,7 @@
         padding: 2rem; 
         border-radius: 0.5rem; 
         background-color: white; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // 그림자 추가로 분리감 표현
 
         .login-input {
             margin-bottom: 1rem; 
@@ -23,6 +24,13 @@
             border: 1px solid #dee2e6; 
             border-radius: 0.25rem; 
             font-size: 1rem; 
+            outline: none; // 기본 포커스 테두리 제거
+            transition: border-color 0.3s; // 부드러운 테두리 색상 전환
+
+            &:focus {
+                border-color: #3A3A3A; // 포커스 시 테두리 색상 변경
+                box-shadow: 0 0 0 1px #3A3A3A; // 미묘한 포커스 그림자 추가
+            }
         }
 
         .login-button {
@@ -34,19 +42,71 @@
             cursor: pointer; 
             font-size: 1.25rem; 
             margin-top: 1rem; 
+            transition: background-color 0.3s; // 부드러운 배경색 전환
+
+            &:hover {
+                background-color: #555; // 호버 시 더 어두운 색상
+            }
+        }
+
+        .error-message {
+            color: red; // 오류 메시지 색상을 빨간색으로 설정
+            margin-bottom: 1rem; 
+            font-size: 0.875rem; // 필요에 따라 글꼴 크기 조정
+        }
+
+        .social-buttons-container {
+            display: flex;
+            justify-content: space-between; // 버튼들 사이에 공간을 균등하게 배분
+            margin-top: 1rem;
+            
+            img {
+                display: block;
+                cursor: pointer;
+                border-radius: 50px; // 버튼을 둥글게
+                width: 50px; // 이미지 너비 설정
+                height: auto; // 비율을 유지하면서 높이 자동 조정
+            }
+
+            .kakao-login-button {
+                background-color: #fee500;
+                color: #3A1D1D;
+                font-size: 1.25rem;
+                text-align: center;
+                font-weight: bold;
+                transition: background-color 0.3s; // 부드러운 배경색 전환
+
+                &:hover {
+                    background-color: #fdd835; // 호버 시 약간 어두운 노란색
+                }
+            }
+            
+            .google-login-button {
+                background-color: #4285F4; // 구글 블루 색상
+                color: white;
+                font-size: 1.25rem;
+                text-align: center;
+                font-weight: bold;
+                transition: background-color 0.3s;
+
+                &:hover {
+                    background-color: #357ae8; // 호버 시 어두운 블루
+                }
+            }
         }
     }
-    
+
     @media (max-width: 300px) {
         .login-form {
             padding: 1.5rem;
+            max-width: 100%; // 작은 화면에 맞게 폼 크기 조정
         }
 
         .login-input {
             font-size: 0.875rem;
         }
 
-        .login-button {
+        .login-button, .kakao-login-button {
             font-size: 1rem;
         }
     }

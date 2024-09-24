@@ -6,9 +6,7 @@ import './index.css';
 
 // StrictMode와 BrowserRouter를 사용하여 앱을 렌더링
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <Router> 
       <App />
     </Router>
-  </StrictMode>,
 );

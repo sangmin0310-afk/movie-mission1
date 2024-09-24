@@ -9,7 +9,7 @@ const MovieList = ({ searchTerm }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const debouncedSearchTerm = useDebounce(searchTerm, 500);
+    const debouncedSearchTerm = useDebounce(searchTerm, 5000);
     const navigate = useNavigate();
 
     useEffect(() => {

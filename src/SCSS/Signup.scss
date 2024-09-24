@@ -35,6 +35,13 @@
             font-size: 1.25rem; 
             margin-top: 1rem; 
         }
+
+        .error-message {
+            color: red;   /* 경고 메시지를 빨간색으로 표시 */
+            font-size: 0.875rem;  /* 폰트 크기 설정 */
+            margin-top: -1rem;    /* 경고 메시지와 입력 필드 간의 간격 조정 */
+            margin-bottom: 1rem;  /* 다음 요소와의 간격 설정 */
+        }
     }
     
     @media (max-width: 300px) {
